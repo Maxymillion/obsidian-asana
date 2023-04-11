@@ -1,0 +1,11 @@
+{
+	"id": "asana",
+	"name": "Asana",
+	"version": "0.5.0",
+	"minAppVersion": "1.1.0",
+	"fundingUrl": "https://github.com/sponsors/Maxymillion",
+	"description": "Asana integration for Obsidian.",
+	"author": "Maxymillion",
+	"authorUrl": "https://github.com/Maxymillion",
+	"isDesktopOnly": true
+}
