@@ -1,19 +1,19 @@
 # Asana for Obsidian
 Wouldn't it be nice to be able to link to Asana tasks, with readable links. Well, it's here, or atleast this is the first version. The MVP so to speak.
 
-## Features
+### Features
 - Auto-replacing Asana task links with title.
 
-### Planned
-- In Obsidian search for tasks.
-- When clicking on an Asana task create a new page filled with task information.
+#### Planned
+- [ ] In Obsidian search for tasks.
+- [ ] When clicking on an Asana task create a new page filled with task information.
 
-## Setup
+### Setup
 - Install the plugin
 - Go to the Asana settings page and add your Personal Access Token
 - Click on the cloud to sync your Asana Personal Access Token
 
-### How to get Asana Personal Access Token
+#### How to get Asana Personal Access Token
 1. Go to https://app.asana.com/0/my-apps
 	- _Login if needed_
 2. Click the "+ Create new Token" button (below Personal access tokens)
@@ -22,7 +22,7 @@ Wouldn't it be nice to be able to link to Asana tasks, with readable links. Well
 5. Click the "Create token" button
 6. If all went well, you'll see an Asana personal access token. Copy this token to a save place
 
-### (Optional) Install beta using [Obsidian42 - BRAT](https://github.com/TfTHacker/obsidian42-brat)
+#### (Optional) Install beta using [Obsidian42 - BRAT](https://github.com/TfTHacker/obsidian42-brat)
 1. Install BRAT from the Community Plugins in Obsidian
 2. Open the command palette and run the command BRAT: Add a beta plugin for testing
 3. Paste this repo's link into the pop-up
