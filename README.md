@@ -1,7 +1,7 @@
+# Asana for Obsidian
 [![GitHub release (latest)](https://img.shields.io/github/v/release/Maxymillion/obsidian-asana?style=flat-square&sort=semver)](https://github.com/Maxymillion/obsidian-asana/releases/latest) 
 [![Total Downloads](https://img.shields.io/github/downloads/Maxymillion/obsidian-asana/total?style=flat-square)](https://github.com/Maxymillion/obsidian-asana/releases/latest) 
 
-# Asana for Obsidian
 Wouldn't it be nice to be able to link to Asana tasks, with readable links. Well, it's here, or atleast this is the first version. The MVP so to speak.
 
 ### Features
