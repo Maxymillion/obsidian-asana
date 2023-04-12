@@ -32,8 +32,14 @@ export class SettingsTab extends PluginSettingTab {
 			.setName("General Settings")
 
 		new Setting(containerEl)
-			.setName('Convert link on paste')
-			.setDesc('Something about where to find this key...')
+			.setName('On Paste: Add title to Asana link')
+			.addToggle(tC => tC
+				.setValue(this.plugin.settings.enablePasteReplace)
+				.onChange((value) => {
+					this.plugin.settings.enablePasteReplace = value;
+					this.plugin.saveSettings();
+				})
+			)
 
 		const headingGroup = containerEl.createEl("div", {cls: "mxy-setting__heading-group"});
 

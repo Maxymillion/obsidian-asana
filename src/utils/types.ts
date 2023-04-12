@@ -2,6 +2,7 @@ export interface Settings {
 	enabled: boolean,
 	debug: boolean,
 	credentials: AsanaCredentials,
+	enablePasteReplace: boolean
 }
 
 export interface AsanaCredentials {
@@ -21,6 +22,7 @@ export interface AsanaWorkspace {
 export const DEFAULT_SETTINGS: Settings = {
 	enabled: false,
 	debug: false,
+	enablePasteReplace: true,
 	credentials: {
 		name: "",
 		email: "",

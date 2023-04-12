@@ -1,4 +1,5 @@
 import {
+	Editor,
 	Plugin
 } from 'obsidian';
 import {DEFAULT_SETTINGS, Settings} from "./utils/types";
@@ -8,7 +9,6 @@ import {AsanaManager} from "./components/Asana";
 export default class Asana extends Plugin {
 	settings: Settings;
 	asanaManager: AsanaManager;
-
 	async onload() {
 		console.log(`${this.manifest.name}: Loading`);
 
@@ -18,9 +18,10 @@ export default class Asana extends Plugin {
 
 		this.asanaManager = new AsanaManager(this);
 
-		this.registerEvent(this.app.workspace.on("editor-paste", this.asanaManager.modifyPasteEvent.bind(this.asanaManager)));
+		this.app.workspace.on("editor-paste", this.asanaManager.modifyPasteEvent.bind(this.asanaManager));
 	}
 	async onunload() {
+		this.app.workspace.off("editor-paste", this.asanaManager.modifyPasteEvent.bind(this.asanaManager));
 		console.log(`${this.manifest.name}: Unloading`);
 	}
 

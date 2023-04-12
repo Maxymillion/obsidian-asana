@@ -14,10 +14,7 @@ export class AsanaManager {
 
 	init(): void {
 		if (this.plugin.settings.credentials.apiKey) {
-			this.checkConnection().then(() => {
-
-
-			}).catch((err) => {
+			this.checkConnection().catch((err) => {
 				console.log(err);
 			})
 		}
@@ -36,45 +33,40 @@ export class AsanaManager {
 
 	//(evt: ClipboardEvent, editor: Editor, info: MarkdownView | MarkdownFileInfo)
 	public modifyPasteEvent(clipboardEvent: ClipboardEvent, editor: Editor) {
-		console.log(clipboardEvent.clipboardData);
-		clipboardEvent.preventDefault();
-		clipboardEvent.stopPropagation();
+		// abort if setting is disabled / user is not authenticated
+		if (!this.plugin.settings.enablePasteReplace || !this.plugin.settings.enabled || !this.plugin.settings.credentials.gid) return;
 
-		return;
+		// abort when pane isn't markdown editor
+		if (!editor) return;
 
-		// const asanaRegex = /(https:\/\/app\.asana\.com)\/(\d+)\/(\d+)\/(\d+)/;
-		// // abort when pane isn't markdown editor
-		// if (!editor) return;
-		//
-		// // abort if clipboard data is empty
-		// if (!clipboardEvent.clipboardData) return;
-		//
-		// const plainClipboard = clipboardEvent.clipboardData.getData("text/plain");
-		//
-		// if (!plainClipboard) return;
-		//
-		// // prevent default pasting & abort when not successful
-		// clipboardEvent.preventDefault();
-		// clipboardEvent.stopPropagation();
-		//
-		// // abort if regex test fails
-		// if (!asanaRegex.test(plainClipboard)) return;
-		//
-		// const matches = asanaRegex.exec(plainClipboard);
-		//
-		// // abort if regex has no matches
-		// if (!matches) return;
-		//
-		// const projectID = matches[3];
-		// const taskID = matches[4];
-		//
-		// if (!projectID || !taskID) return;
-		//
-		// this.getTaskFromAsana(taskID).then((res) => {
-		// 	editor.replaceSelection(`[${res.data.name}](${plainClipboard})`);
-		// 	return;
-		// });
-		// return;
+		// abort if clipboard data is empty
+		if (!clipboardEvent.clipboardData) return;
+
+		const plainClipboard = clipboardEvent.clipboardData.getData("text/plain");
+
+		if (!plainClipboard) return;
+
+		const asanaRegex = /(https:\/\/app\.asana\.com)\/(\d+)\/(\d+)\/(\d+)/;
+
+		// abort if regex test fails
+		if (!asanaRegex.test(plainClipboard)) return;
+
+		const matches = asanaRegex.exec(plainClipboard);
+
+		// abort if regex has no matches
+		if (!matches) return;
+
+		const projectID = matches[3];
+		const taskID = matches[4];
+
+		if (!projectID || !taskID) return;
+
+		this.getTaskFromAsana(taskID).then((res) => {
+			if (!res.data.name) return;
+			let lineEdit = editor.getLine(editor.getCursor().line);
+			lineEdit = lineEdit.replace(`${plainClipboard}`, `[${res.data.name}](${plainClipboard}) `);
+			editor.setLine(editor.getCursor().line, lineEdit);
+		});
 	}
 
 	private async testConnection(token: string = this.plugin.settings.credentials.apiKey) {
@@ -144,7 +136,6 @@ export class AsanaManager {
 
 			this.testConnection(token).then(async (res) => {
 				if (res.data) {
-					console.log(res.data);
 					if (verbose) {
 						new Notice(`${this.plugin.manifest.name}: Connection successful`);
 					}
