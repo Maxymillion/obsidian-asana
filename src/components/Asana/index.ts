@@ -121,7 +121,7 @@ export class AsanaManager {
 
 	checkConnection(token: string = this.plugin.settings.credentials.apiKey, verbose: boolean = false): Promise<boolean> {
 		return new Promise(async (resolve, reject) => {
-			if (token.length != 51) {
+			if (token.length != 68) {
 				if (verbose) {
 					new Notice(`${this.plugin.manifest.name}: Invalid Token!`);
 				}
